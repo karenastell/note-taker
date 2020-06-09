@@ -13,7 +13,7 @@ router.get("/notes", (req, res)=>{
 })
 
 // get "*" route
-router.get("/", (req, res)=>{
+router.get("*", (req, res)=>{
    const filePath = path.join(__dirname, "..", "public", "index.html")
     res.sendfile(filePath)
 })
