@@ -1,9 +1,9 @@
 const express = require("express");
 const app = express();
-const apiRoutes = require("./routes/apiRoutes")
-const htmlRoutes = require("./routes/htmlRoutes")
+const apiRoutes = require("./Develop/routes/apiRoutes")
+const htmlRoutes = require("./Develop/routes/htmlRoutes")
 
-const PORT = 8090;
+const PORT = 8080;
 
 // middleware that is needed to use POST data
 app.use(express.urlencoded({extended:true}));
@@ -17,3 +17,4 @@ app.listen(PORT, ()=>{
     console.log(`Server is listening at http://localhost:${PORT}`);
     
 });
+

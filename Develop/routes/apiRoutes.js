@@ -1,5 +1,6 @@
-const Notebook = require("./Develop/db/Notebook")
-const express = require("express");
+const Notebook = require("../db/Notebook")
+const router = require("express").Router();
+
 
 // get request for /api/notes
 // call the getNotes() from the class you required (Notebook)
@@ -12,3 +13,5 @@ const express = require("express");
 
 // delete request for /api/notes/:id
 // call the deleteNotes() 
+
+module.exports = router;
