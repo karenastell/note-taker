@@ -9,13 +9,13 @@ const app = express();
 // sendFile() - directory, filename you want to display
 router.get("/notes", (req, res)=>{
    const filePath = path.join(__dirname, "..", "public", "notes.html")
-    res.sendfile(filePath)
+    res.sendFile(filePath)
 })
 
 // get "*" route
-router.get("*", (req, res)=>{
+router.get("/", (req, res)=>{
    const filePath = path.join(__dirname, "..", "public", "index.html")
-    res.sendfile(filePath)
+    res.sendFile(filePath)
 })
 // sendFile() - directory, filename you want to display
 

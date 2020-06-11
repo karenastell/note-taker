@@ -11,7 +11,7 @@ router.get("/notes", (req, res) => {
 // post request for /api/notes
 router.post("/notes", (req, res) => {
   Notebook.addNotes();
-  res.json(note);
+  res.json(newNote);
 });
 // call the addNotes() from the class you required (Notebook)
 // res.json(note)
