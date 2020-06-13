@@ -4,7 +4,7 @@ const apiRoutes = require("./routes/apiRoutes");
 const htmlRoutes = require("./routes/htmlRoutes");
 const path = require("path");
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 // middleware that is needed to use POST data
 app.use(express.json());
@@ -22,5 +22,3 @@ app.listen(PORT, () => {
   console.log(`Server is listening at http://localhost:${PORT}`);
 });
 
-
-// Resource interpreted as Stylesheet but transferred with MIME type text/html "http://localhost:8008/assets/css/styles.css"
