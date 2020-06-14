@@ -39,12 +39,32 @@ router.post("/notes", (req, res) => {
 });
 
 
-router.delete("/notes:id", (req, res) => {
-  fs.readFile(notesJSON, "utf8", (err, note)=>{
-    if(err) throw err;
-  })
+router.delete("/notes/:id", (req, res) => {
+  // read the notes db.json file
+  fs.readFile(notesJSON, "utf-8", (err, notes) => {
+    if (err) {
+      throw err;
+    }
+
+    // parse the notes
+    const parsedNote = JSON.parse(notes);
+    // set the id of the note that was clicked to a variable
+    let deletedID = req.params.id;
+    // for each note in the json array, if the note's id matches the clickedID then find the index of that note in the array and remove that note using .splice()
+    parsedNote.forEach((note) => {
+      if (note.id == deletedID) {
+        const noteIndex = parsedData.indexOf(note);
+        parsedNote.splice(noteIndex, 1);
+      }
+    });
+    // Rewrite the db.json file with the new array that the note was removed from
+    fs.writeFileSync(notesJSON, JSON.stringify(parsedNote), (err) => {
+      if (err) {
+        throw err;
+      }
+    });
+    res.json(JSON.stringify(parsedNote));
+  });
 });
-// delete request for /api/notes/:id
-// call the deleteNotes()
 
 module.exports = router;
