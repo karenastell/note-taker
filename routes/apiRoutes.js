@@ -27,7 +27,9 @@ router.post("/notes", (req, res) => {
   newNote.id = Math.random();
   // push the new note into the json array
   parseSavedJSON.push(newNote);
+  // stringify the notes
   const stringifyNotes = JSON.stringify(parseSavedJSON)
+  // write all of the notes onto the saved file
   fs.writeFile(notesJSON, newNote, (err) =>{
     if (err) throw err;
     console.log("notes saved");
@@ -38,7 +40,9 @@ router.post("/notes", (req, res) => {
 
 
 router.delete("/notes:id", (req, res) => {
-  Notes.deleteNotes(id);
+  fs.readFile(notesJSON, "utf8", (err, note)=>{
+    if(err) throw err;
+  })
 });
 // delete request for /api/notes/:id
 // call the deleteNotes()
