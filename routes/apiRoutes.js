@@ -20,25 +20,25 @@ router.get("/notes", (req, res) => {
 // post request for /api/notes
 router.post("/notes", (req, res) => {
   // read the json file
-  const savedJSON = fs.readFile(notesJSON, "utf8");
+  const savedJSON = JSON.parse(fs.readFile(notesJSON, "utf8"));
   console.log((savedJSON, "savedJSON in router.post"));
-  const parseSavedJSON = JSON.parse(savedJSON);
   // new note created
   const newNote = req.body;
   // put an id on the notes to be used when deleting notes
   newNote.id = Math.random();
   // push the new note into the json array
-  parseSavedJSON.push(newNote);
+  savedJSON.push(newNote);
   // stringify the notes
-  const stringifyNotes = JSON.stringify(parseSavedJSON)
+  const stringifyNotes = JSON.stringify(savedJSON)
   // write all of the notes onto the saved file
-  fs.writeFile(notesJSON, newNote, (err) =>{
+  fs.writeFile(notesJSON, stringifyNotes, (err) =>{
     if (err) throw err;
     console.log("notes saved");
     
   });
   res.json(stringifyNotes);
 });
+
 
 
 router.delete("/notes/:id", (req, res) => {
