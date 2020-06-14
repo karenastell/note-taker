@@ -25,13 +25,14 @@ router.post("/notes", (req, res) => {
   const newNote = req.body;
   // put an id on the notes to be used when deleting notes
   newNote.id = Math.random();
-
+  parseSavedJSON.push(newNote);
+  const stringifyNotes = JSON.stringify()
   fs.writeFile(notesJSON, newNote, (err) =>{
     if (err) throw err;
     console.log("notes saved");
     
   });
-  res.json(newNote);
+  res.json(stringifyNotes);
 });
 // call the addNotes() from the class you required (Notebook)
 // res.json(note)
