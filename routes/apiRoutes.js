@@ -32,7 +32,7 @@ router.post("/notes", (req, res) => {
   // write all of the notes onto the saved file
   fs.writeFile(notesJSON, stringifyNotes, (err) => {
     if (err) throw err;
-    console.log("notes saved");
+
   });
   res.json(stringifyNotes);
 });
@@ -50,7 +50,7 @@ router.delete("/notes/:id", (req, res) => {
     // loop through arrary and delete the note if it matches the id that was clicked on
     parsedNote.forEach((note) => {
       if (note.id == deletedID) {
-        const noteIndex = parsedData.indexOf(note);
+        const noteIndex = parsedNote.indexOf(note);
         parsedNote.splice(noteIndex, 1);
       }
     });
