@@ -17,9 +17,20 @@ router.get("/notes", (req, res) => {
 
 // post request for /api/notes
 router.post("/notes", (req, res) => {
-  const fsReadFile = fs.readFile(notesJSON, "utf8");
-  console.log((fsReadFile, "fsReadFile in router.post"));
-  
+  // read the json file
+  const savedJSON = fs.readFile(notesJSON, "utf8");
+  console.log((savedJSON, "savedJSON in router.post"));
+  const parseSavedJSON = JSON.parse(savedJSON);
+  // new note created
+  const newNote = req.body;
+  // put an id on the notes to be used when deleting notes
+  newNote.id = Math.random();
+
+  fs.writeFile(notesJSON, newNote, (err) =>{
+    if (err) throw err;
+    console.log("notes saved");
+    
+  });
   res.json(newNote);
 });
 // call the addNotes() from the class you required (Notebook)
