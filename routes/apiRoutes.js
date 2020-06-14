@@ -4,7 +4,6 @@ const fs = require("fs");
 const path = require("path");
 const notesJSON = path.join(__dirname, "../db/db.json");
 
-
 // get request for /api/notes
 router.get("/notes", (req, res) => {
   // read the json file
@@ -20,7 +19,7 @@ router.get("/notes", (req, res) => {
 // post request for /api/notes
 router.post("/notes", (req, res) => {
   // read the json file
-  const savedJSON = JSON.parse(fs.readFile(notesJSON, "utf8"));
+  const savedJSON = JSON.parse(fs.readFileSync(notesJSON, "utf8"));
   console.log((savedJSON, "savedJSON in router.post"));
   // new note created
   const newNote = req.body;
@@ -29,17 +28,14 @@ router.post("/notes", (req, res) => {
   // push the new note into the json array
   savedJSON.push(newNote);
   // stringify the notes
-  const stringifyNotes = JSON.stringify(savedJSON)
+  const stringifyNotes = JSON.stringify(savedJSON);
   // write all of the notes onto the saved file
-  fs.writeFile(notesJSON, stringifyNotes, (err) =>{
+  fs.writeFile(notesJSON, stringifyNotes, (err) => {
     if (err) throw err;
     console.log("notes saved");
-    
   });
   res.json(stringifyNotes);
 });
-
-
 
 router.delete("/notes/:id", (req, res) => {
   // read the notes db.json file
@@ -58,7 +54,7 @@ router.delete("/notes/:id", (req, res) => {
         parsedNote.splice(noteIndex, 1);
       }
     });
-    // Rewrite the notes 
+    // Rewrite the notes
     fs.writeFileSync(notesJSON, JSON.stringify(parsedNote), (err) => {
       if (err) {
         throw err;
